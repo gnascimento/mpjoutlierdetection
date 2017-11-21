@@ -19,7 +19,7 @@ public class DespesaService implements IDespesaService {
 	private IDespesaDAO dao;
 	
 	@Performance(logName = "BUSCAR_DESPESAS_ANO_DB", description = "Buscar despesas do banco de dados")
-	public List<Despesa> buscarDespesasPorAno(String ano) {
+	public List<Despesa> buscarDespesasPorAno(List<String> ano) {
 		List<Despesa> despesas = dao.buscarDespesasPorAno(ano);
 		return despesas;
 	}
@@ -27,7 +27,9 @@ public class DespesaService implements IDespesaService {
 	@Performance(logName = "AGRUPA_DESPESAS_TIPO_GASTO", description = "Agrupa Despesas por Tipo de Gasto")
 	public Map<String, List<Despesa>> agruparDespesaPorTipoGasto(List<Despesa> despesas) {
 		Map<String, List<Despesa>> agrupamento = despesas.parallelStream()
-				.collect(Collectors.groupingBy(x -> x.getTxtDescricao()));
+				.collect(Collectors.groupingBy((x) -> 
+					 (x.getNumAno() + "-" + x.getTxtDescricao())
+				));
 		return agrupamento;
 	}
 	

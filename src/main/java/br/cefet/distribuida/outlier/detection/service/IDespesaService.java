@@ -6,6 +6,6 @@ import java.util.Map;
 import br.cefet.distribuida.outlier.detection.model.Despesa;
 
 public interface IDespesaService {
-	public List<Despesa> buscarDespesasPorAno(String ano);
+	public List<Despesa> buscarDespesasPorAno(List<String> ano);
 	public Map<String, List<Despesa>> agruparDespesaPorTipoGasto(List<Despesa> despesas);
 }

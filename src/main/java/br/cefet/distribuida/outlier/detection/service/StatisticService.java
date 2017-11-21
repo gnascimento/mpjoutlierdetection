@@ -101,7 +101,7 @@ public class StatisticService implements IStatisticService {
             }
             percentile = (percentile / 100.00);
             //Nao precisa somar 1 como na formula original, pois o indice comeca com zero
-            long pos = Math.round(percentile * this.count);
+            long pos = Math.round(percentile * (this.count -1));
             this.sort();
             System.out.println("Posicao percentil: " + pos);
             return this.distribution.get((int) pos);
@@ -127,7 +127,7 @@ public class StatisticService implements IStatisticService {
                 this.count = this.count();
             }
             //Nao precisa somar 1 como na formula original, pois o indice comeca com zero
-            int pos = (int)Math.round(this.count * 0.25 * quantile);
+            int pos = (int)Math.round((this.count - 1) * 0.25 * quantile);
             this.sort();
             System.out.println("Posicao quartil: " + pos);
             return this.distribution.get(pos);
@@ -228,9 +228,4 @@ public class StatisticService implements IStatisticService {
     	}
 		return despesasOutliers;
 	}
-	
-	@Performance(logName = "DESNORMALIZACAO_Z_SCORE", description = "Normalização Z-Score")
-    public void unNormalizeZscore() {
-    	
-    }
 }
